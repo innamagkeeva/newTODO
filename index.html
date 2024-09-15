@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Новый TODO</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="task">
+      <div class="container">
+        <h1 class="title">HIGH</h1>
+        <form action="" class="form formHigh">
+          <input
+            class="form__input formHigh__input"
+            type="text"
+            name="task"
+            required
+            autofocus
+            placeholder="Добавить важных дел"
+          />
+          <button class="form__button formHigh__button" type="submit">+</button>
+        </form>
+        <ul class="list listHigh">
+          <!-- <li class="listHigh__item">
+            <input class="listHigh__checkbox" type="checkbox" />
+            <p class="listHigh__text"></p>
+            <button class="listHigh__delete">+</button>
+          </li> -->
+        </ul>
+
+        <h2 class="title">LOW</h2>
+        <form action="" class="form formLow">
+          <input
+            class="form__input formLow__input"
+            type="text"
+            name="task"
+            required
+            autofocus
+            placeholder="Добавить важных дел"
+          />
+          <button class="form__button formLow__button" type="submit">+</button>
+        </form>
+        <ul class="list listLow">
+          <!-- <li class="listLow__item">
+        <input class="listLow__checkbox" type="checkbox">
+        <p class="listLow__text"></p>
+        <button class="listLow__delete">x</button>
+       </li> -->
+        </ul>
+      </div>
+    </div>
+    <script src="js/main.js"></script>
+  </body>
+</html>
