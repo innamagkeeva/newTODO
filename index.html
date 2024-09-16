@@ -10,46 +10,47 @@
     <div class="task">
       <div class="container">
         <h1 class="title">HIGH</h1>
-        <form action="" class="form formHigh">
+        <form class="form form-high">
           <input
-            class="form__input formHigh__input"
+            class="form__input form-high__input"
             type="text"
             name="task"
             required
-            autofocus
             placeholder="Добавить важных дел"
           />
-          <button class="form__button formHigh__button" type="submit">+</button>
+          <button class="form__button form-high__button" type="submit">
+            +
+          </button>
         </form>
-        <ul class="list listHigh">
-          <!-- <li class="listHigh__item">
-            <input class="listHigh__checkbox" type="checkbox" />
-            <p class="listHigh__text"></p>
-            <button class="listHigh__delete">+</button>
+        <ul class="list list-high">
+          <!-- <li class="list-high__item">
+            <input class="list-high__checkbox" type="checkbox" />
+            <p class="list-high__text"></p>
+            <button class="list-high__delete">+</button>
           </li> -->
         </ul>
 
         <h2 class="title">LOW</h2>
-        <form action="" class="form formLow">
+        <form class="form form-low">
           <input
-            class="form__input formLow__input"
+            class="form__input form-low__input"
             type="text"
             name="task"
             required
-            autofocus
-            placeholder="Добавить важных дел"
+            placeholder="Добавить"
           />
-          <button class="form__button formLow__button" type="submit">+</button>
+          <button class="form__button form-low__button" type="submit">+</button>
         </form>
-        <ul class="list listLow">
-          <!-- <li class="listLow__item">
-        <input class="listLow__checkbox" type="checkbox">
-        <p class="listLow__text"></p>
-        <button class="listLow__delete">x</button>
+        <ul class="list list-low">
+          <!-- <li class="list-low__item">
+        <input class="list-low__checkbox" type="checkbox">
+        <p class="list-low__text"></p>
+        <button class="list-low__delete">x</button>
        </li> -->
         </ul>
       </div>
     </div>
-    <script src="js/main.js"></script>
+    <script type="module" src="js/ui.js"></script>
+    <script type="module" src="js/main.js"></script>
   </body>
 </html>
