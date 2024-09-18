@@ -1,35 +1,56 @@
-const formHigh = document.querySelector('.form-high')
-const listHigh = document.querySelector('.list-high')
-const formLow = document.querySelector('.form-low')
-const listLow = document.querySelector('.list-low')
+import UI from './ui.js'
 
-const formHighInput = document.querySelector('.form-high__input')
+UI.HIGH_FORM.addEventListener('submit', addTask)
 
-formHigh.addEventListener('submit', addTask)
+// function addTask(e) {
+//   e.preventDefault()
+
+//   const newLi = document.createElement('li')
+//   newLi.className = 'list-high__item'
+//   UI.HIGH_LIST.appendChild(newLi)
+
+//   newLi.appendChild(createInput())
+//   newLi.appendChild(createText(UI.HIGH_INPUT.value))
+//   newLi.appendChild(createButton())
+
+//   clearInput()
+// }
+
 function addTask(e) {
   e.preventDefault()
-
   const newLi = document.createElement('li')
-  newLi.className = 'list-high__item'
-  listHigh.appendChild(newLi)
+  newLi.className = 'list__item'
 
-  newLi.appendChild(createInput())
-  newLi.appendChild(createText(formHighInput.value))
-  newLi.appendChild(createButton())
+  if (e.target.classList.contains('HIGH_FORM')) {
+    newLi.appendChild(createInput())
+    newLi.appendChild(createText(UI.HIGH_INPUT.value))
+    newLi.appendChild(createButton())
+
+    UI.HIGH_LIST.appendChild(newLi)
+    // return
+  }
+  if (e.target.classList.contains('LOW_FORM')) {
+    newLi.appendChild(createInput())
+    newLi.appendChild(createText(UI.LOW_INPUT.value))
+    newLi.appendChild(createButton())
+
+    UI.LOW_LIST.appendChild(newLi)
+    // return
+  }
 
   clearInput()
 }
 
 function createInput() {
   const newInput = document.createElement('input')
-  newInput.className = 'list-high__checkbox'
+  newInput.className = 'list__checkbox'
   newInput.type = 'checkbox'
   return newInput
 }
 
 function createText(text) {
   const newText = document.createElement('p')
-  newText.className = 'list-high__text'
+  newText.className = 'list__text'
   const inputText = text
   newText.textContent = inputText
   return newText
@@ -37,7 +58,7 @@ function createText(text) {
 
 function createButton() {
   const newButton = document.createElement('button')
-  newButton.className = 'list-high__delete'
+  newButton.className = 'list__delete'
   newButton.textContent = '+'
 
   newButton.addEventListener('click', deleteTask)
@@ -49,14 +70,5 @@ function deleteTask(e) {
 }
 
 function clearInput() {
-  formHighInput.value = ''
-}
-
-const UI = {
-  HIGH: {
-    FORM: document.querySelector('.form-high'),
-  },
-  LOW: {
-    FORM: document.querySelector('.form-low'),
-  },
+  UI.HIGH_INPUT.value = ''
 }
