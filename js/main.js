@@ -70,5 +70,5 @@ function deleteTask(e) {
 }
 
 function clearInput() {
-  UI.HIGH_INPUT.value = ''
+  UI.FORM_INPUT.value = ''
 }
