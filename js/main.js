@@ -1,41 +1,35 @@
 import UI from './ui.js'
 
 UI.HIGH_FORM.addEventListener('submit', addTask)
-
-// function addTask(e) {
-//   e.preventDefault()
-
-//   const newLi = document.createElement('li')
-//   newLi.className = 'list-high__item'
-//   UI.HIGH_LIST.appendChild(newLi)
-
-//   newLi.appendChild(createInput())
-//   newLi.appendChild(createText(UI.HIGH_INPUT.value))
-//   newLi.appendChild(createButton())
-
-//   clearInput()
-// }
+UI.LOW_FORM.addEventListener('submit', addTask)
 
 function addTask(e) {
   e.preventDefault()
+
+  console.log(e.target.classList)
+  console.log(UI.FORM_INPUT.value)
+
   const newLi = document.createElement('li')
   newLi.className = 'list__item'
 
-  if (e.target.classList.contains('HIGH_FORM')) {
+  if (e.target.classList.contains('form-high')) {
+    console.log(111)
+
     newLi.appendChild(createInput())
-    newLi.appendChild(createText(UI.HIGH_INPUT.value))
+    newLi.appendChild(createText(UI.FORM_INPUT.value))
+
     newLi.appendChild(createButton())
 
     UI.HIGH_LIST.appendChild(newLi)
-    // return
-  }
-  if (e.target.classList.contains('LOW_FORM')) {
+  } else if (e.target.classList.contains('form-low')) {
+    console.log(222)
+
     newLi.appendChild(createInput())
-    newLi.appendChild(createText(UI.LOW_INPUT.value))
+    newLi.appendChild(createText(UI.FORM_INPUT.value))
+
     newLi.appendChild(createButton())
 
     UI.LOW_LIST.appendChild(newLi)
-    // return
   }
 
   clearInput()
@@ -49,10 +43,16 @@ function createInput() {
 }
 
 function createText(text) {
+  console.log(777)
+
   const newText = document.createElement('p')
   newText.className = 'list__text'
+  console.log(888)
+
   const inputText = text
   newText.textContent = inputText
+  console.log(999)
+
   return newText
 }
 
