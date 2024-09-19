@@ -76,7 +76,7 @@ body {
   cursor: pointer;
 }
 
-.listHigh__item {
+.list__item {
   display: flex;
   justify-content: space-between;
   max-width: 100%;
@@ -86,18 +86,18 @@ body {
   margin-bottom: 10px;
 }
 
-.listHigh__checkbox {
+.list__checkbox {
   margin-left: 5px;
 }
 
-.listHigh__text {
+.list__text {
   display: flex;
   flex-grow: 1;
   align-items: center;
   margin-left: 5px;
 }
 
-.listHigh__delete {
+.list__delete {
   margin-right: 10px;
   background-color: white;
   border: none;
