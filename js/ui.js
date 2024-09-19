@@ -5,7 +5,9 @@ const UI = {
   HIGH_LIST: document.querySelector('.list-high'),
   LOW_LIST: document.querySelector('.list-low'),
 
-  FORM_INPUT: document.querySelector('.form__input'),
+  INPUT: document.querySelector('.form__input'),
+  HIGH_INPUT: document.querySelector('.form__input-high'),
+  LOW_INPUT: document.querySelector('.form__input-low'),
 }
 
 export default UI

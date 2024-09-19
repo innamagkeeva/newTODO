@@ -7,31 +7,23 @@ function addTask(e) {
   e.preventDefault()
 
   console.log(e.target.classList)
-  console.log(UI.FORM_INPUT.value)
 
   const newLi = document.createElement('li')
   newLi.className = 'list__item'
 
   if (e.target.classList.contains('form-high')) {
-    console.log(111)
-
     newLi.appendChild(createInput())
-    newLi.appendChild(createText(UI.FORM_INPUT.value))
-
+    newLi.appendChild(createText(UI.HIGH_INPUT.value))
     newLi.appendChild(createButton())
-
     UI.HIGH_LIST.appendChild(newLi)
   } else if (e.target.classList.contains('form-low')) {
-    console.log(222)
-
     newLi.appendChild(createInput())
-    newLi.appendChild(createText(UI.FORM_INPUT.value))
+    newLi.appendChild(createText(UI.LOW_INPUT.value))
 
     newLi.appendChild(createButton())
 
     UI.LOW_LIST.appendChild(newLi)
   }
-
   clearInput()
 }
 
@@ -43,15 +35,11 @@ function createInput() {
 }
 
 function createText(text) {
-  console.log(777)
-
   const newText = document.createElement('p')
   newText.className = 'list__text'
-  console.log(888)
 
   const inputText = text
   newText.textContent = inputText
-  console.log(999)
 
   return newText
 }
@@ -70,5 +58,6 @@ function deleteTask(e) {
 }
 
 function clearInput() {
-  UI.FORM_INPUT.value = ''
+  UI.HIGH_INPUT.value = ''
+  UI.LOW_INPUT.value = ''
 }
