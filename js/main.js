@@ -51,10 +51,12 @@ function createText(text) {
   const newText = document.createElement('p')
   newText.className = 'list__text'
 
-  const inputText = text
-  newText.textContent = inputText
+  const inputText = text.charAt(0).toUpperCase() + text.slice(1).trim()
+  // вопрос 1: что лучше text[0] или text.charAt(0) ???
+  // вопрос 2: если убирает пробелы с помощью trim(), то пишет с маленькой буквы.
 
-  // highTasks.push(inputText)
+  newText.textContent = inputText
+  console.log(newText)
 
   return newText
 }
