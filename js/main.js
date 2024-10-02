@@ -14,29 +14,23 @@ function addTask(e) {
   const newLi = document.createElement('li')
   newLi.className = 'list__item'
 
+  let taskText
+  let taskList
+
   if (e.target.classList.contains('form-high')) {
-    const highTaskText = UI.HIGH_INPUT.value
-
-    newLi.appendChild(createInput())
-    newLi.appendChild(createText(highTaskText))
-    newLi.appendChild(createButton())
-    UI.HIGH_LIST.appendChild(newLi)
-
-    highTasks.push(highTaskText)
-    console.log('highTasks= ', highTasks)
+    taskText = UI.HIGH_INPUT.value
+    taskList = UI.HIGH_LIST
+    highTasks.push(taskText)
   } else if (e.target.classList.contains('form-low')) {
-    const lowTaskText = UI.LOW_INPUT.value
-
-    console.log('lowTaskText= ', lowTaskText)
-    newLi.appendChild(createInput())
-    newLi.appendChild(createText(lowTaskText))
-    newLi.appendChild(createButton())
-
-    UI.LOW_LIST.appendChild(newLi)
-
-    lowTasks.push(lowTaskText)
-    console.log('lowTasks= ', lowTasks)
+    taskText = UI.LOW_INPUT.value
+    taskList = UI.LOW_LIST
+    lowTasks.push(taskText)
   }
+  newLi.appendChild(createInput())
+  newLi.appendChild(createText(taskText))
+  newLi.appendChild(createButton())
+  taskList.appendChild(newLi)
+
   clearInput()
 }
 
@@ -51,12 +45,13 @@ function createText(text) {
   const newText = document.createElement('p')
   newText.className = 'list__text'
 
-  const inputText = text.charAt(0).toUpperCase() + text.slice(1).trim()
-  // вопрос 1: что лучше text[0] или text.charAt(0) ???
-  // вопрос 2: если убирает пробелы с помощью trim(), то пишет с маленькой буквы.
+  const inputText = text.trim()
+  const newInputText = inputText.charAt(0).toUpperCase() + inputText.slice(1)
 
-  newText.textContent = inputText
+  newText.textContent = newInputText
   console.log(newText)
+
+  // Ура работает! пока допетрила... все варианты прошлась
 
   return newText
 }
@@ -77,8 +72,8 @@ function deleteTask(e) {
     const index = highTasks.indexOf(taskText)
     if (index !== -1) {
       highTasks.splice(index, 1)
+      console.log(highTasks)
     }
-    console.log(highTasks)
   } else if (UI.LOW_LIST.contains(e.target.parentNode)) {
     const index = lowTasks.indexOf(taskText)
     if (index !== -1) {
@@ -89,6 +84,8 @@ function deleteTask(e) {
 
   e.target.parentNode.remove()
 }
+
+// в связи с изменениями в function addTask(e) поломалась function deleteTask(e). теперь задача из массива не удаляется. а что не так я не вижу.
 
 function clearInput() {
   UI.HIGH_INPUT.value = ''
