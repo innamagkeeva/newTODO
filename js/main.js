@@ -6,6 +6,34 @@ let lowTasks = []
 UI.HIGH_FORM.addEventListener('submit', addTask)
 UI.LOW_FORM.addEventListener('submit', addTask)
 
+UI.HIGH_INPUT.addEventListener('input', checkInput)
+UI.LOW_INPUT.addEventListener('input', checkInput)
+
+function checkInput() {
+  const highInputValue = UI.HIGH_INPUT.value.trim()
+  const lowInputValue = UI.LOW_INPUT.value.trim()
+
+  const highButton = UI.HIGH_FORM.querySelector(
+    'form__button-high[type="submit"]'
+  )
+  const lowButton = UI.LOW_FORM.querySelector('form__button-low[type="submit"]')
+
+  if (highInputValue) {
+    highButton.removeAttribute('disabled')
+    console.log(e.target.value)
+  } else {
+    highButton.setAttribute('disabled', true)
+    console.log(e.target.value)
+  }
+
+  if (lowInputValue) {
+    lowButton.removeAttribute('disabled')
+  } else {
+    lowButton.setAttribute('disabled', true)
+  }
+  // console.log(e.target.value)
+}
+
 function addTask(e) {
   e.preventDefault()
 
@@ -18,11 +46,15 @@ function addTask(e) {
   let taskList
 
   if (e.target.classList.contains('form-high')) {
-    taskText = UI.HIGH_INPUT.value
+    taskText = UI.HIGH_INPUT.value.trim()
+    if (taskText === '') return
+    taskText = taskText.charAt(0).toUpperCase() + taskText.slice(1)
     taskList = UI.HIGH_LIST
     highTasks.push(taskText)
   } else if (e.target.classList.contains('form-low')) {
-    taskText = UI.LOW_INPUT.value
+    taskText = UI.LOW_INPUT.value.trim()
+    if (taskText === '') return
+    taskText = taskText.charAt(0).toUpperCase() + taskText.slice(1)
     taskList = UI.LOW_LIST
     lowTasks.push(taskText)
   }
@@ -50,8 +82,6 @@ function createText(text) {
 
   newText.textContent = newInputText
   console.log(newText)
-
-  // Ура работает! пока допетрила... все варианты прошлась
 
   return newText
 }
@@ -84,8 +114,6 @@ function deleteTask(e) {
 
   e.target.parentNode.remove()
 }
-
-// в связи с изменениями в function addTask(e) поломалась function deleteTask(e). теперь задача из массива не удаляется. а что не так я не вижу.
 
 function clearInput() {
   UI.HIGH_INPUT.value = ''
