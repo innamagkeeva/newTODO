@@ -13,25 +13,21 @@ function checkInput() {
   const highInputValue = UI.HIGH_INPUT.value.trim()
   const lowInputValue = UI.LOW_INPUT.value.trim()
 
-  const highButton = UI.HIGH_FORM.querySelector(
-    'form__button-high[type="submit"]'
-  )
-  const lowButton = UI.LOW_FORM.querySelector('form__button-low[type="submit"]')
-
   if (highInputValue) {
-    highButton.removeAttribute('disabled')
-    console.log(e.target.value)
+    console.log('highInputValue= ', highInputValue)
+
+    UI.HIGH_BUTTON.removeAttribute('disabled')
   } else {
-    highButton.setAttribute('disabled', true)
-    console.log(e.target.value)
+    UI.HIGH_BUTTON.setAttribute('disabled', true)
   }
 
   if (lowInputValue) {
-    lowButton.removeAttribute('disabled')
+    console.log('lowInputValue= ', lowInputValue)
+
+    UI.LOW_BUTTON.removeAttribute('disabled')
   } else {
-    lowButton.setAttribute('disabled', true)
+    UI.LOW_BUTTON.setAttribute('disabled', true)
   }
-  // console.log(e.target.value)
 }
 
 function addTask(e) {
@@ -47,13 +43,11 @@ function addTask(e) {
 
   if (e.target.classList.contains('form-high')) {
     taskText = UI.HIGH_INPUT.value.trim()
-    if (taskText === '') return
     taskText = taskText.charAt(0).toUpperCase() + taskText.slice(1)
     taskList = UI.HIGH_LIST
     highTasks.push(taskText)
   } else if (e.target.classList.contains('form-low')) {
     taskText = UI.LOW_INPUT.value.trim()
-    if (taskText === '') return
     taskText = taskText.charAt(0).toUpperCase() + taskText.slice(1)
     taskList = UI.LOW_LIST
     lowTasks.push(taskText)
