@@ -46,11 +46,17 @@ function addTask(e) {
     taskText = taskText.charAt(0).toUpperCase() + taskText.slice(1)
     taskList = UI.HIGH_LIST
     highTasks.push(taskText)
+    localStorage.setItem('highTask', taskText)
+
+    // ВОПРОС: сохраняет в localStorage только последнюю задачу.
   } else if (e.target.classList.contains('form-low')) {
     taskText = UI.LOW_INPUT.value.trim()
     taskText = taskText.charAt(0).toUpperCase() + taskText.slice(1)
     taskList = UI.LOW_LIST
     lowTasks.push(taskText)
+    localStorage.setItem('lowTask', taskText)
+
+    //  тот же ВОПРОС: сохраняет в localStorage только последнюю задачу.
   }
   newLi.appendChild(createInput())
   newLi.appendChild(createText(taskText))
