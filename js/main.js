@@ -38,25 +38,16 @@ function addTask(e) {
   const newLi = document.createElement('li')
   newLi.className = 'list__item'
 
-  let taskText
-  let taskList
-
   if (e.target.classList.contains('form-high')) {
-    taskText = UI.HIGH_INPUT.value.trim()
-    taskText = taskText.charAt(0).toUpperCase() + taskText.slice(1)
-    taskList = UI.HIGH_LIST
-    highTasks.push(taskText)
-    localStorage.setItem('highTask', taskText)
+    showTaskText(HIGH_INPUT)
 
-    // ВОПРОС: сохраняет в localStorage только последнюю задачу.
+    const storage = JSON.stringify(highTasks)
+    localStorage.setItem('highTask', storage)
   } else if (e.target.classList.contains('form-low')) {
-    taskText = UI.LOW_INPUT.value.trim()
-    taskText = taskText.charAt(0).toUpperCase() + taskText.slice(1)
-    taskList = UI.LOW_LIST
-    lowTasks.push(taskText)
-    localStorage.setItem('lowTask', taskText)
+    showTaskText(LOW_INPUT)
 
-    //  тот же ВОПРОС: сохраняет в localStorage только последнюю задачу.
+    const storage2 = JSON.stringify(lowTasks)
+    localStorage.setItem('lowTask', storage2)
   }
   newLi.appendChild(createInput())
   newLi.appendChild(createText(taskText))
@@ -64,6 +55,22 @@ function addTask(e) {
   taskList.appendChild(newLi)
 
   clearInput()
+}
+
+function showTaskText(input) {
+  let taskText
+  let taskList
+  taskText = UI[input].value.trim()
+  taskText = taskText.charAt(0).toUpperCase() + taskText.slice(1)
+
+  // я не могу додуматься как переделать эти две строчки ниже.....
+  taskList = UI.LOW_LIST
+  lowTasks.push(taskText)
+  // и не могу додуматься как
+  // const storage2 = JSON.stringify(lowTasks)
+  // localStorage.setItem('lowTask', storage2)
+  // это переделать в одно и вынести сюда.
+  // В ОБЩЕМ, ДАЛЬШЕ НЕ ДВИНУЛАСЬ ТОГО ЧТО ТЫ ПОКАЗАЛ. сейчас не работает естественно.
 }
 
 function createInput() {
