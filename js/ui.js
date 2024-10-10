@@ -8,6 +8,11 @@ const UI = {
   INPUT: document.querySelector('.form__input'),
   HIGH_INPUT: document.querySelector('.form__input-high'),
   LOW_INPUT: document.querySelector('.form__input-low'),
+
+  TASK__TEXT: document.querySelector('list__text'),
+
+  HIGH_BUTTON: document.querySelector('.form__button-high'),
+  LOW_BUTTON: document.querySelector('.form__button-low'),
 }
 
 export default UI
