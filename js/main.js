@@ -35,42 +35,36 @@ function addTask(e) {
 
   console.log(e.target.classList)
 
-  const newLi = document.createElement('li')
-  newLi.className = 'list__item'
-
   if (e.target.classList.contains('form-high')) {
-    showTaskText(HIGH_INPUT)
+    showTaskText('HIGH_INPUT', 'HIGH_LIST', highTasks)
 
-    const storage = JSON.stringify(highTasks)
-    localStorage.setItem('highTask', storage)
+    // const storage = JSON.stringify(highTasks)
+    // localStorage.setItem('highTask', storage)
   } else if (e.target.classList.contains('form-low')) {
-    showTaskText(LOW_INPUT)
+    showTaskText('LOW_INPUT', 'LOW_LIST', lowTasks)
 
-    const storage2 = JSON.stringify(lowTasks)
-    localStorage.setItem('lowTask', storage2)
+    // const storage = JSON.stringify(lowTasks)
+    // localStorage.setItem('lowTask', storage)
   }
-  newLi.appendChild(createInput())
-  newLi.appendChild(createText(taskText))
-  newLi.appendChild(createButton())
-  taskList.appendChild(newLi)
 
   clearInput()
 }
 
-function showTaskText(input) {
-  let taskText
-  let taskList
-  taskText = UI[input].value.trim()
-  taskText = taskText.charAt(0).toUpperCase() + taskText.slice(1)
+function saveToLocalStorage(tasks, list) {}
 
-  // я не могу додуматься как переделать эти две строчки ниже.....
-  taskList = UI.LOW_LIST
-  lowTasks.push(taskText)
-  // и не могу додуматься как
-  // const storage2 = JSON.stringify(lowTasks)
-  // localStorage.setItem('lowTask', storage2)
-  // это переделать в одно и вынести сюда.
-  // В ОБЩЕМ, ДАЛЬШЕ НЕ ДВИНУЛАСЬ ТОГО ЧТО ТЫ ПОКАЗАЛ. сейчас не работает естественно.
+function showTaskText(input, list, task) {
+  const newLi = document.createElement('li')
+  newLi.className = 'list__item'
+
+  const taskText = UI[input].value.trim()
+  const normalizeTaskText = taskText.charAt(0).toUpperCase() + taskText.slice(1)
+
+  task.push(taskText)
+  newLi.appendChild(createInput())
+  newLi.appendChild(createText(normalizeTaskText))
+  newLi.appendChild(createButton())
+  UI[list].appendChild(newLi)
+  saveToLocalStorage()
 }
 
 function createInput() {
