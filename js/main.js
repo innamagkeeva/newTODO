@@ -14,7 +14,7 @@ function checkInput() {
   const lowInputValue = UI.LOW_INPUT.value.trim()
 
   if (highInputValue) {
-    console.log('highInputValue= ', highInputValue)
+    // console.log('highInputValue= ', highInputValue)
 
     UI.HIGH_BUTTON.removeAttribute('disabled')
   } else {
@@ -22,7 +22,7 @@ function checkInput() {
   }
 
   if (lowInputValue) {
-    console.log('lowInputValue= ', lowInputValue)
+    // console.log('lowInputValue= ', lowInputValue)
 
     UI.LOW_BUTTON.removeAttribute('disabled')
   } else {
@@ -33,7 +33,7 @@ function checkInput() {
 function addTask(e) {
   e.preventDefault()
 
-  console.log(e.target.classList)
+  // console.log(e.target.classList)
 
   if (e.target.classList.contains('form-high')) {
     showTaskText('HIGH_INPUT', 'HIGH_LIST', highTasks)
@@ -50,8 +50,6 @@ function addTask(e) {
   clearInput()
 }
 
-function saveToLocalStorage(tasks, list) {}
-
 function showTaskText(input, list, task) {
   const newLi = document.createElement('li')
   newLi.className = 'list__item'
@@ -59,13 +57,36 @@ function showTaskText(input, list, task) {
   const taskText = UI[input].value.trim()
   const normalizeTaskText = taskText.charAt(0).toUpperCase() + taskText.slice(1)
 
-  task.push(taskText)
+  task.push(normalizeTaskText)
   newLi.appendChild(createInput())
   newLi.appendChild(createText(normalizeTaskText))
   newLi.appendChild(createButton())
   UI[list].appendChild(newLi)
+
+  // НИЖЕ ПОПЫТКА ТВОЕГО ЗАДАНИЯ :"Попробуй обойтись без этой функции,а localStorage перенеси в showTaskText" НО НЕ ПОЛУЧАЕТСЯ
+
+  // localStorage.setItem(normalizeTaskText.JSON.stringify(task))
+
   saveToLocalStorage()
 }
+
+// С ЭТОЙ ФУНКЦИЕЙ ХОТЬ КАК-ТО СОХРАНЯЕТ В localStorage, НО НАДО ДОРАБАТЫВАТЬ if-ОМ,ПОТОМУ ЧТО СОХРАНЯЕТ И НУЖНЫЙ МАССИВ И ПУСТОЙ. НО КАК СДЕЛАТЬ ЭТИ ИФЫ - НЕ ПРИДУМЫВАЕТСЯ.....
+
+function saveToLocalStorage() {
+  localStorage.setItem('highTask', JSON.stringify(highTasks))
+  localStorage.setItem('lowTask', JSON.stringify(lowTasks))
+}
+
+// НИЖЕ КАК Я ПРИМЕРНО ПРЕДСТАВЛЯЮ if-Ы, НО ВСЕ РАВНО НЕ ВЕРНО. И НЕ ЗАЮ КАК ПРОВЕРИТЬ КОНСОЛЬЛОГАМИ.
+
+// function saveToLocalStorage(list) {
+//   if (list === HIGH_LIST) {
+//     localStorage.setItem('highTask', JSON.stringify(highTasks))
+//   }
+//   if (list === LOW_LIST) {
+//     localStorage.setItem('lowTask', JSON.stringify(lowTasks))
+//   }
+// }
 
 function createInput() {
   const newInput = document.createElement('input')
@@ -82,7 +103,7 @@ function createText(text) {
   const newInputText = inputText.charAt(0).toUpperCase() + inputText.slice(1)
 
   newText.textContent = newInputText
-  console.log(newText)
+  // console.log(newText)
 
   return newText
 }
@@ -103,13 +124,13 @@ function deleteTask(e) {
     const index = highTasks.indexOf(taskText)
     if (index !== -1) {
       highTasks.splice(index, 1)
-      console.log(highTasks)
+      // console.log(highTasks)
     }
   } else if (UI.LOW_LIST.contains(e.target.parentNode)) {
     const index = lowTasks.indexOf(taskText)
     if (index !== -1) {
       lowTasks.splice(index, 1)
-      console.log(lowTasks)
+      // console.log(lowTasks)
     }
   }
 
