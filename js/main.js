@@ -14,16 +14,12 @@ function checkInput() {
   const lowInputValue = UI.LOW_INPUT.value.trim()
 
   if (highInputValue) {
-    // console.log('highInputValue= ', highInputValue)
-
     UI.HIGH_BUTTON.removeAttribute('disabled')
   } else {
     UI.HIGH_BUTTON.setAttribute('disabled', true)
   }
 
   if (lowInputValue) {
-    // console.log('lowInputValue= ', lowInputValue)
-
     UI.LOW_BUTTON.removeAttribute('disabled')
   } else {
     UI.LOW_BUTTON.setAttribute('disabled', true)
@@ -33,24 +29,16 @@ function checkInput() {
 function addTask(e) {
   e.preventDefault()
 
-  // console.log(e.target.classList)
-
   if (e.target.classList.contains('form-high')) {
-    showTaskText('HIGH_INPUT', 'HIGH_LIST', highTasks)
-
-    // const storage = JSON.stringify(highTasks)
-    // localStorage.setItem('highTask', storage)
+    showTaskText('HIGH_INPUT', 'HIGH_LIST', highTasks, 'highTask', highTasks)
   } else if (e.target.classList.contains('form-low')) {
-    showTaskText('LOW_INPUT', 'LOW_LIST', lowTasks)
-
-    // const storage = JSON.stringify(lowTasks)
-    // localStorage.setItem('lowTask', storage)
+    showTaskText('LOW_INPUT', 'LOW_LIST', lowTasks, 'lowTask', lowTasks)
   }
 
   clearInput()
 }
 
-function showTaskText(input, list, task) {
+function showTaskText(input, list, task, status, tasksStatus) {
   const newLi = document.createElement('li')
   newLi.className = 'list__item'
 
@@ -63,30 +51,12 @@ function showTaskText(input, list, task) {
   newLi.appendChild(createButton())
   UI[list].appendChild(newLi)
 
-  // НИЖЕ ПОПЫТКА ТВОЕГО ЗАДАНИЯ :"Попробуй обойтись без этой функции,а localStorage перенеси в showTaskText" НО НЕ ПОЛУЧАЕТСЯ
-
-  // localStorage.setItem(normalizeTaskText.JSON.stringify(task))
-
-  saveToLocalStorage()
+  saveToLocalStorage(status, tasksStatus)
 }
 
-// С ЭТОЙ ФУНКЦИЕЙ ХОТЬ КАК-ТО СОХРАНЯЕТ В localStorage, НО НАДО ДОРАБАТЫВАТЬ if-ОМ,ПОТОМУ ЧТО СОХРАНЯЕТ И НУЖНЫЙ МАССИВ И ПУСТОЙ. НО КАК СДЕЛАТЬ ЭТИ ИФЫ - НЕ ПРИДУМЫВАЕТСЯ.....
-
-function saveToLocalStorage() {
-  localStorage.setItem('highTask', JSON.stringify(highTasks))
-  localStorage.setItem('lowTask', JSON.stringify(lowTasks))
+function saveToLocalStorage(status, tasksStatus) {
+  localStorage.setItem(status, JSON.stringify(tasksStatus))
 }
-
-// НИЖЕ КАК Я ПРИМЕРНО ПРЕДСТАВЛЯЮ if-Ы, НО ВСЕ РАВНО НЕ ВЕРНО. И НЕ ЗАЮ КАК ПРОВЕРИТЬ КОНСОЛЬЛОГАМИ.
-
-// function saveToLocalStorage(list) {
-//   if (list === HIGH_LIST) {
-//     localStorage.setItem('highTask', JSON.stringify(highTasks))
-//   }
-//   if (list === LOW_LIST) {
-//     localStorage.setItem('lowTask', JSON.stringify(lowTasks))
-//   }
-// }
 
 function createInput() {
   const newInput = document.createElement('input')
@@ -103,7 +73,6 @@ function createText(text) {
   const newInputText = inputText.charAt(0).toUpperCase() + inputText.slice(1)
 
   newText.textContent = newInputText
-  // console.log(newText)
 
   return newText
 }
@@ -124,13 +93,11 @@ function deleteTask(e) {
     const index = highTasks.indexOf(taskText)
     if (index !== -1) {
       highTasks.splice(index, 1)
-      // console.log(highTasks)
     }
   } else if (UI.LOW_LIST.contains(e.target.parentNode)) {
     const index = lowTasks.indexOf(taskText)
     if (index !== -1) {
       lowTasks.splice(index, 1)
-      // console.log(lowTasks)
     }
   }
 
