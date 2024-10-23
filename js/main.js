@@ -3,6 +3,8 @@ import UI from './ui.js'
 let highTasks = []
 let lowTasks = []
 
+loadTasksFromLocalStorage()
+
 UI.HIGH_FORM.addEventListener('submit', addTask)
 UI.LOW_FORM.addEventListener('submit', addTask)
 
@@ -58,6 +60,14 @@ function saveToLocalStorage(status, tasksStatus) {
   localStorage.setItem(status, JSON.stringify(tasksStatus))
 }
 
+function loadTasksFromLocalStorage() {
+  highTasks = JSON.parse(localStorage.getItem('highTasks')) || []
+  lowTasks = JSON.parse(localStorage.getItem('lowTasks')) || []
+
+  highTasks.forEach((task) => showTaskText(task, 'HIGH_LIST', highTasks))
+  lowTasks.forEach((task) => showTaskText(task, 'LOW_LIST', lowTasks))
+}
+
 function createInput() {
   const newInput = document.createElement('input')
   newInput.className = 'list__checkbox'
@@ -102,6 +112,9 @@ function deleteTask(e) {
   }
 
   e.target.parentNode.remove()
+
+  saveToLocalStorage('highTask', highTasks)
+  saveToLocalStorage('lowTask', lowTasks)
 }
 
 function clearInput() {
