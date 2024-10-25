@@ -97,7 +97,7 @@ body {
   margin-left: 5px;
 }
 
-.list__delete {
+.list__button-delete {
   margin-right: 10px;
   background-color: white;
   border: none;

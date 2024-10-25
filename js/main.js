@@ -1,30 +1,83 @@
 import UI from './ui.js'
 
+let highTasks = []
+let lowTasks = []
+
+loadTasksFromLocalStorage()
+
 UI.HIGH_FORM.addEventListener('submit', addTask)
 UI.LOW_FORM.addEventListener('submit', addTask)
+
+UI.HIGH_INPUT.addEventListener('input', checkInput)
+UI.LOW_INPUT.addEventListener('input', checkInput)
+
+function checkInput() {
+  const highInputValue = UI.HIGH_INPUT.value.trim()
+  const lowInputValue = UI.LOW_INPUT.value.trim()
+
+  if (highInputValue) {
+    UI.HIGH_BUTTON.removeAttribute('disabled')
+  } else {
+    UI.HIGH_BUTTON.setAttribute('disabled', true)
+  }
+
+  if (lowInputValue) {
+    UI.LOW_BUTTON.removeAttribute('disabled')
+  } else {
+    UI.LOW_BUTTON.setAttribute('disabled', true)
+  }
+}
 
 function addTask(e) {
   e.preventDefault()
 
-  console.log(e.target.classList)
+  if (e.target.classList.contains('form-high')) {
+    showTaskText(
+      UI.HIGH_INPUT.value.trim(),
+      'HIGH_LIST',
+      highTasks,
+      'highTasks',
+      highTasks
+    )
+  } else if (e.target.classList.contains('form-low')) {
+    showTaskText(
+      UI.LOW_INPUT.value.trim(),
+      'LOW_LIST',
+      lowTasks,
+      'lowTasks',
+      lowTasks
+    )
+  }
 
+  clearInput()
+}
+
+function showTaskText(taskText, list, task, status, tasksStatus) {
   const newLi = document.createElement('li')
   newLi.className = 'list__item'
 
-  if (e.target.classList.contains('form-high')) {
-    newLi.appendChild(createInput())
-    newLi.appendChild(createText(UI.HIGH_INPUT.value))
-    newLi.appendChild(createButton())
-    UI.HIGH_LIST.appendChild(newLi)
-  } else if (e.target.classList.contains('form-low')) {
-    newLi.appendChild(createInput())
-    newLi.appendChild(createText(UI.LOW_INPUT.value))
+  // const taskText = UI[input].value.trim()
+  const normalizeTaskText = taskText.charAt(0).toUpperCase() + taskText.slice(1)
 
-    newLi.appendChild(createButton())
+  task.push(normalizeTaskText)
+  newLi.appendChild(createInput())
+  newLi.appendChild(createText(normalizeTaskText))
+  newLi.appendChild(createButton())
+  UI[list].appendChild(newLi)
 
-    UI.LOW_LIST.appendChild(newLi)
-  }
-  clearInput()
+  saveToLocalStorage(status, tasksStatus)
+}
+
+function saveToLocalStorage(status, tasksStatus) {
+  localStorage.setItem(status, JSON.stringify(tasksStatus))
+}
+
+function loadTasksFromLocalStorage() {
+  highTasks = JSON.parse(localStorage.getItem('highTasks')) || []
+  lowTasks = JSON.parse(localStorage.getItem('lowTasks')) || []
+
+  highTasks.forEach((task) => showTaskText(task, 'HIGH_LIST', highTasks))
+  lowTasks.forEach((task) => showTaskText(task, 'LOW_LIST', lowTasks))
 }
 
 function createInput() {
@@ -38,15 +91,17 @@ function createText(text) {
   const newText = document.createElement('p')
   newText.className = 'list__text'
 
-  const inputText = text
-  newText.textContent = inputText
+  const inputText = text.trim()
+  const newInputText = inputText.charAt(0).toUpperCase() + inputText.slice(1)
+
+  newText.textContent = newInputText
 
   return newText
 }
 
 function createButton() {
   const newButton = document.createElement('button')
-  newButton.className = 'list__delete'
+  newButton.className = 'list__button-delete'
   newButton.textContent = '+'
 
   newButton.addEventListener('click', deleteTask)
@@ -54,7 +109,23 @@ function createButton() {
 }
 
 function deleteTask(e) {
+  const taskText = e.target.parentNode.querySelector('.list__text').textContent
+
+  if (UI.HIGH_LIST.contains(e.target.parentNode)) {
+    const index = highTasks.indexOf(taskText)
+    if (index !== -1) {
+      highTasks.splice(index, 1)
+    }
+  } else if (UI.LOW_LIST.contains(e.target.parentNode)) {
+    const index = lowTasks.indexOf(taskText)
+    if (index !== -1) {
+      lowTasks.splice(index, 1)
+    }
+  }
   e.target.parentNode.remove()
+
+  saveToLocalStorage('highTasks', highTasks)
+  saveToLocalStorage('lowTasks', lowTasks)
 }
 
 function clearInput() {
