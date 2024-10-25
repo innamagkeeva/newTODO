@@ -32,19 +32,31 @@ function addTask(e) {
   e.preventDefault()
 
   if (e.target.classList.contains('form-high')) {
-    showTaskText('HIGH_INPUT', 'HIGH_LIST', highTasks, 'highTask', highTasks)
+    showTaskText(
+      UI.HIGH_INPUT.value.trim(),
+      'HIGH_LIST',
+      highTasks,
+      'highTasks',
+      highTasks
+    )
   } else if (e.target.classList.contains('form-low')) {
-    showTaskText('LOW_INPUT', 'LOW_LIST', lowTasks, 'lowTask', lowTasks)
+    showTaskText(
+      UI.LOW_INPUT.value.trim(),
+      'LOW_LIST',
+      lowTasks,
+      'lowTasks',
+      lowTasks
+    )
   }
 
   clearInput()
 }
 
-function showTaskText(input, list, task, status, tasksStatus) {
+function showTaskText(taskText, list, task, status, tasksStatus) {
   const newLi = document.createElement('li')
   newLi.className = 'list__item'
 
-  const taskText = UI[input].value.trim()
+  // const taskText = UI[input].value.trim()
   const normalizeTaskText = taskText.charAt(0).toUpperCase() + taskText.slice(1)
 
   task.push(normalizeTaskText)
@@ -110,11 +122,10 @@ function deleteTask(e) {
       lowTasks.splice(index, 1)
     }
   }
-
   e.target.parentNode.remove()
 
-  saveToLocalStorage('highTask', highTasks)
-  saveToLocalStorage('lowTask', lowTasks)
+  saveToLocalStorage('highTasks', highTasks)
+  saveToLocalStorage('lowTasks', lowTasks)
 }
 
 function clearInput() {
